@@ -1,6 +1,6 @@
-# BTween
+# Tweeny Weeny
 
-A simple tweening library based on [EventEmitter3](https://www.npmjs.com/package/eventemitter3).
+A weally tweeny simple tweening library based on [EventEmitter3](https://www.npmjs.com/package/eventemitter3).
 
 > Works in the Browser or NodeJS
 
@@ -112,4 +112,4 @@ The `.start(fromValue, toValue, [easingFunction])` method takes an optional 3rd 
 
 # Issues
 
-Please report any issues, feedback, bugs or suggestions [here](https://github.com/dragonworx/file-format/issues).
+Please report any issues, feedback, bugs or suggestions [here](https://github.com/dragonworx/tweenyweeny/issues).

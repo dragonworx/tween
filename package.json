@@ -1,17 +1,17 @@
 {
-  "name": "btween",
+  "name": "tweenyweeny",
   "version": "0.1.0",
   "description": "Simple tweening library based on EventEmitter3",
   "keywords": [
     "typescript"
   ],
-  "homepage": "https://github.com/dragonworx/btween",
+  "homepage": "https://github.com/dragonworx/tweenyweeny",
   "bugs": {
-    "url": "https://github.com/dragonworx/btween/issues"
+    "url": "https://github.com/dragonworx/tweenyweeny/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dragonworx/btween.git"
+    "url": "git+https://github.com/dragonworx/tweenyweeny.git"
   },
   "license": "MIT",
   "author": "Ali Chamas <dragonworxau@yahoo.com.au> (https://github.com/dragonworx)",
