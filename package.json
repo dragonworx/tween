@@ -5,13 +5,13 @@
   "keywords": [
     "typescript"
   ],
-  "homepage": "https://github.com/dragonworx/tween",
+  "homepage": "https://github.com/dragonworx/btween",
   "bugs": {
-    "url": "https://github.com/dragonworx/tween/issues"
+    "url": "https://github.com/dragonworx/btween/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dragonworx/tween.git"
+    "url": "git+https://github.com/dragonworx/btween.git"
   },
   "license": "MIT",
   "author": "Ali Chamas <dragonworxau@yahoo.com.au> (https://github.com/dragonworx)",
