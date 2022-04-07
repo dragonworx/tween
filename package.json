@@ -1,5 +1,5 @@
 {
-  "name": "tween",
+  "name": "btween",
   "version": "0.1.0",
   "description": "Simple tweening library based on EventEmitter3",
   "keywords": [
@@ -37,6 +37,7 @@
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.3",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/jest": "^27.4.0",
     "jest": "^27.4.7",

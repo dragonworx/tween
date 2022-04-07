@@ -1,4 +1,4 @@
-# Tween
+# BTween
 
 A simple tweening library based on [EventEmitter3](https://www.npmjs.com/package/eventemitter3).
 
@@ -9,6 +9,8 @@ A simple tweening library based on [EventEmitter3](https://www.npmjs.com/package
 Install as dependency through npm.
 
 `npm install tween`
+
+> For < IE 10 support, you'll need to use a `requestAnimationFrame` polyfill.
 
 ## Usage
 

@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import path from 'path';
 import { terser } from 'rollup-plugin-terser';
 
@@ -37,7 +38,7 @@ const prepareBundle = dirs => {
       externalLiveBindings: false,
     },
     plugins: [
-      resolve(),
+      resolve(), commonjs()
     ],
   };
 };
@@ -69,7 +70,7 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
+      resolve(), commonjs()
     ],
   },
 ];
