@@ -1,7 +1,7 @@
 {
   "name": "tween",
   "version": "0.1.0",
-  "description": "Simple tweening library based on EventEmitter",
+  "description": "Simple tweening library based on EventEmitter3",
   "keywords": [
     "typescript"
   ],
