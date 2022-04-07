@@ -17,7 +17,7 @@ Install as dependency through npm.
 Create a new `Tween` object passing the desired duration in milliseconds.
 
 ```javascript
-import { Tween } from "tween";
+import { Tween } from "tweenyweeny";
 
 const tween = new Tween(1000); // 1 second
 ```
