@@ -8,9 +8,11 @@ export class Tween extends EventEmitter<
   private from: number;
   private to: number;
   private easingFn: EasingFunction;
+  durationMs: number;
 
-  constructor(readonly durationMs: number) {
+  constructor(durationMs: number) {
     super();
+    this.durationMs = durationMs;
     this.startTime = -1;
     this.from = 0;
     this.to = 0;
@@ -34,15 +36,16 @@ export class Tween extends EventEmitter<
     this.to = to;
     this.startTime = Date.now();
     this.easingFn = Easing[easeingFn];
-    this.emit("start", from, to);
+    this.emit("start", from, to, easeingFn);
     this.tick();
 
     return new Promise((resolve) => {
-      const fn = () => {
+      const onComplete = () => {
+        this.off("complete", onComplete);
         resolve(void 0);
-        this.off("complete", fn);
       };
-      this.on("complete", fn);
+
+      this.on("complete", onComplete);
     });
   }
 
@@ -53,13 +56,17 @@ export class Tween extends EventEmitter<
 
   private tick = () => {
     const { startTime, from, to, durationMs, easingFn } = this;
+
     if (startTime === -1) {
       return;
     }
+
     const lerp = Math.min(1, (Date.now() - startTime) / durationMs);
     const parametric = easingFn(lerp);
     const value = from + (to - from) * parametric;
+
     this.emit("update", value);
+
     if (lerp === 1) {
       this.stop();
       this.emit("complete");
