@@ -1,2 +1,2 @@
-export * from "./easer";
+export * from "./tween";
 export * from "./easing";
