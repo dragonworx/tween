@@ -1,6 +1,6 @@
 {
   "name": "tweenyweeny",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Simple tweening library based on EventEmitter3",
   "keywords": [
     "typescript"
