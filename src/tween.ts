@@ -1,26 +1,53 @@
 import { EventEmitter } from "eventemitter3";
 import { Easing, EasingFunction, EasingFunctionName } from "./easing";
 
+export const _requestAnimationFrame = (fn: () => void) => {
+  if (typeof requestAnimationFrame === "undefined") {
+    setTimeout(fn, 0);
+  } else {
+    requestAnimationFrame(fn);
+  }
+};
+
 export class Tween extends EventEmitter<
   "start" | "update" | "complete" | "stop"
 > {
-  private startTime: number;
-  private from: number;
-  private to: number;
-  private easingFn: EasingFunction;
-  durationMs: number;
+  private _startTime: number;
+  private _from: number;
+  private _to: number;
+  private _currentValue: number;
+  private _easingFn: EasingFunction;
 
-  constructor(durationMs: number) {
+  public duration: number;
+
+  public static defaultDurationMs: number = 150;
+
+  static run(
+    from: number,
+    to: number,
+    durationMs: number = Tween.defaultDurationMs,
+    easeingFn: EasingFunctionName = "easeOutQuad"
+  ) {
+    return new Tween(durationMs).start(from, to, easeingFn);
+  }
+
+  constructor(durationMs: number = Tween.defaultDurationMs) {
     super();
-    this.durationMs = durationMs;
-    this.startTime = -1;
-    this.from = 0;
-    this.to = 0;
-    this.easingFn = Easing["easeOutQuad"];
+
+    this.duration = durationMs;
+    this._startTime = -1;
+    this._from = 0;
+    this._to = 0;
+    this._currentValue = 0;
+    this._easingFn = Easing["easeOutQuad"];
   }
 
   get isRunning() {
-    return this.startTime !== -1;
+    return this._startTime !== -1;
+  }
+
+  get currentValue() {
+    return this._currentValue;
   }
 
   start(
@@ -32,11 +59,12 @@ export class Tween extends EventEmitter<
       this.stop();
     }
 
-    this.from = from;
-    this.to = to;
-    this.startTime = Date.now();
-    this.easingFn = Easing[easeingFn];
-    this.emit("start", from, to, easeingFn);
+    this._from = from;
+    this._to = to;
+    this._startTime = Date.now();
+    this._currentValue = from;
+    this._easingFn = Easing[easeingFn];
+    this.emit("start", from, to);
     this.tick();
 
     return new Promise((resolve) => {
@@ -45,33 +73,33 @@ export class Tween extends EventEmitter<
         resolve(void 0);
       };
 
-      this.on("complete", onComplete);
+      this.on("stop", onComplete).on("complete", onComplete);
     });
   }
 
   stop() {
-    this.startTime = -1;
-    this.emit("stop");
+    this._startTime = -1;
+    this.emit("stop", this.currentValue);
   }
 
   private tick = () => {
-    const { startTime, from, to, durationMs, easingFn } = this;
+    const { _startTime, _from, _to, duration, _easingFn } = this;
 
-    if (startTime === -1) {
+    if (_startTime === -1) {
       return;
     }
 
-    const lerp = Math.min(1, (Date.now() - startTime) / durationMs);
-    const parametric = easingFn(lerp);
-    const value = from + (to - from) * parametric;
+    const lerp = Math.min(1, (Date.now() - _startTime) / duration);
+    const parametric = _easingFn(lerp);
+    const value = (this._currentValue = _from + (_to - _from) * parametric);
 
     this.emit("update", value);
 
     if (lerp === 1) {
-      this.stop();
-      this.emit("complete");
+      this._startTime = -1;
+      this.emit("complete", _from, _to);
     } else {
-      requestAnimationFrame(this.tick);
+      _requestAnimationFrame(this.tick);
     }
   };
 }
