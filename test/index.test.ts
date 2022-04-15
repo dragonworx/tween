@@ -24,6 +24,27 @@ describe("Tween", () => {
       .start(0, 1, "linear");
   });
 
+  it("should interpolate in descending order", (done) => {
+    const values: Array<number> = [];
+    const tween = new Tween();
+    tween
+      .on("update", (value) => {
+        values.push(value);
+      })
+      .on("complete", () => {
+        const sorted = [...values];
+        sorted.sort();
+        sorted.reverse();
+        expect(tween.currentValue).toBe(0);
+        expect(values.length).toBeGreaterThan(3);
+        expect(Math.round(values[0])).toBe(1);
+        expect(values[values.length - 1]).toBe(0);
+        expect(values).toEqual(sorted);
+        done();
+      })
+      .start(1, 0, "linear");
+  });
+
   it("should not be running until started", () => {
     const tween = new Tween();
     expect(tween.isRunning).toBeFalsy();
@@ -46,7 +67,11 @@ describe("Tween", () => {
   });
 
   it("should provide promise using static function", (done) => {
-    Tween.run(0, 1).then(() => done());
+    const values = [];
+    Tween.run((value) => values.push(value), 0, 1).then(() => {
+      expect(values.length > 0);
+      done();
+    });
   });
 
   it("should provide from/to values with start and complete", (done) => {

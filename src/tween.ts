@@ -23,12 +23,15 @@ export class Tween extends EventEmitter<
   public static defaultDurationMs: number = 150;
 
   static run(
+    updateFn: (value: number) => void,
     from: number,
     to: number,
     durationMs: number = Tween.defaultDurationMs,
     easeingFn: EasingFunctionName = "easeOutQuad"
   ) {
-    return new Tween(durationMs).start(from, to, easeingFn);
+    return new Tween(durationMs)
+      .on("update", updateFn)
+      .start(from, to, easeingFn);
   }
 
   constructor(durationMs: number = Tween.defaultDurationMs) {
