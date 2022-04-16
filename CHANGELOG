@@ -1,3 +1,8 @@
+[1.2.0] - 16/04/2022
+
+- Add shortcut event binding methods
+- Improve readme
+
 [1.1.0] - 16/04/2022
 
 - Add update function to first argument of Tween.run static method
