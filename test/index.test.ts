@@ -100,4 +100,31 @@ describe("Tween", () => {
     });
     tween.stop();
   });
+
+  it("should provide shortcut for binding stop event", (done) => {
+    const tween = new Tween(1000);
+    const onStop = jest.fn();
+    tween.onStop(onStop);
+    tween.start(0, 1).then(() => {
+      expect(onStop).toHaveBeenCalled();
+      done();
+    });
+    tween.stop();
+  });
+
+  it("should provide shortcuts to bind events", (done) => {
+    const tween = new Tween(0);
+    const onStart = jest.fn();
+    const onUpdate = jest.fn();
+    const onComplete = jest.fn();
+    tween.onStart(onStart);
+    tween.onUpdate(onUpdate);
+    tween.onComplete(onComplete);
+    tween.start(0, 1).then(() => {
+      expect(onStart).toHaveBeenCalled();
+      expect(onUpdate).toHaveBeenCalled();
+      expect(onComplete).toHaveBeenCalled();
+      done();
+    });
+  });
 });

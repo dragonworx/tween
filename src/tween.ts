@@ -105,4 +105,20 @@ export class Tween extends EventEmitter<
       _requestAnimationFrame(this.tick);
     }
   };
+
+  onStart(fn: () => void) {
+    return this.on("start", fn);
+  }
+
+  onUpdate(fn: (currentValue: number) => void) {
+    return this.on("update", fn);
+  }
+
+  onStop(fn: (currentValue: number) => void) {
+    return this.on("stop", fn);
+  }
+
+  onComplete(fn: (from: number, to: number) => void) {
+    return this.on("complete", fn);
+  }
 }
